@@ -5,9 +5,12 @@ public class Mage : Actor
     [SerializeField] GameObject AttackParticles;
     [SerializeField] GameObject DieParticles;
 
+    [SerializeField] float speed = 1.2f;
+
     private bool isAttacking = false;
-    Rigidbody rbPar;
     Vector3 enemyTransform;
+
+    GameObject attackParticles;
     protected override void Start()
     {
         Name = "Mage";
@@ -20,8 +23,7 @@ public class Mage : Actor
         base.Attack(enemyPos);
         enemyTransform = enemyPos;
 
-        GameObject attackParticles = Instantiate(AttackParticles, transform.position, Quaternion.identity);
-        rbPar = attackParticles.GetComponent<Rigidbody>();
+        attackParticles = Instantiate(AttackParticles, transform.position, Quaternion.identity);
         isAttacking = true;
 
     }
@@ -30,12 +32,12 @@ public class Mage : Actor
     {
         if (isAttacking) 
         {
-            rbPar.linearVelocity = new Vector3(enemyTransform.x * Time.deltaTime, enemyTransform.y * Time.deltaTime, enemyTransform.z * Time.deltaTime);
+            AttackParticles.transform.position = Vector3.MoveTowards(attackParticles.transform.position, enemyTransform, speed * Time.deltaTime);
         }
-        if( rbPar!=null && enemyTransform !=null && rbPar.transform.position == enemyTransform)
+        if(isAttacking && Vector3.Distance(attackParticles.transform.position , enemyTransform) < 0.2)
         {
             isAttacking = false;
-            Destroy(rbPar.gameObject);
+            Destroy(attackParticles);
         }
 
     }

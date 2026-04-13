@@ -18128,6 +18128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackParticles: {fileID: 9027514048236820045, guid: effb650189dc5714e9e9801b1cfb3991, type: 3}
   DieParticles: {fileID: 5824670795371433373, guid: f6fd568b816c64943a44efc3add3a881, type: 3}
+  speed: 5
 --- !u!1 &802625675
 GameObject:
   m_ObjectHideFlags: 0
